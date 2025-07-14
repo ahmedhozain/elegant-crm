@@ -52,26 +52,49 @@
     </header>
     <!-- End Top Bar -->
 
-    <!-- Sidebar -->
-    <aside class="elegant-sidebar-hover">
-        <ul>
-            <li class="sidebar-section">إدارة العملاء</li>
-            <li><a href="/view_clients" title="عرض العملاء"><i class="bi bi-people-fill"></i><span>عرض العملاء</span></a></li>
-            <li><a href="/contact" title="إضافة عميل"><i class="bi bi-person-plus-fill"></i><span>إضافة عميل</span></a></li>
-            <li class="sidebar-section">المقابلات والمتابعة</li>
-            <li><a href="/view_appointments" title="عرض المقابلات"><i class="bi bi-calendar-event-fill"></i><span>عرض المقابلات</span></a></li>
-            <li><a href="/appointment" title="إضافة مقابلة"><i class="bi bi-calendar-plus-fill"></i><span>إضافة مقابلة</span></a></li>
-            <li><a href="/view_followups" title="عرض المتابعة"><i class="bi bi-clock-history"></i><span>عرض المتابعة</span></a></li>
-            <li><a href="/followup" title="إضافة متابعة"><i class="bi bi-arrow-repeat"></i><span>إضافة متابعة</span></a></li>
-            <li class="sidebar-section">أخرى</li>
-            <li><a href="/view_not_contacted" title="عرض لم يتم التواصل معهم"><i class="bi bi-person-x-fill"></i><span>لم يتم التواصل</span></a></li>
-            <li><a href="/not_contacted" title="إضافة لم يتم التواصل معه"><i class="bi bi-person-dash-fill"></i><span>إضافة لم يتم التواصل</span></a></li>
-            <li><a href="/employee_stats" title="إحصائيات الموظفين"><i class="bi bi-bar-chart-line-fill"></i><span>إحصائيات الموظفين</span></a></li>
-        </ul>
-        <div class="sidebar-company text-center mt-auto mb-3">
-            <span class="sidebar-company-name">ELEGANT</span>
-        </div>
-    </aside>
+    <!-- Sidebar (Desktop) & Navbar (Mobile) -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark d-lg-none">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">ELEGANT</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav w-100">
+        <li class="nav-item"><a class="nav-link" href="/view_clients"><i class="bi bi-people-fill"></i> عرض العملاء</a></li>
+        <li class="nav-item"><a class="nav-link" href="/contact"><i class="bi bi-person-plus-fill"></i> إضافة عميل</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li class="nav-item"><a class="nav-link" href="/view_appointments"><i class="bi bi-calendar-event-fill"></i> عرض المقابلات</a></li>
+        <li class="nav-item"><a class="nav-link" href="/appointment"><i class="bi bi-calendar-plus-fill"></i> إضافة مقابلة</a></li>
+        <li class="nav-item"><a class="nav-link" href="/view_followups"><i class="bi bi-clock-history"></i> عرض المتابعة</a></li>
+        <li class="nav-item"><a class="nav-link" href="/followup"><i class="bi bi-arrow-repeat"></i> إضافة متابعة</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li class="nav-item"><a class="nav-link" href="/view_not_contacted"><i class="bi bi-person-x-fill"></i> لم يتم التواصل</a></li>
+        <li class="nav-item"><a class="nav-link" href="/not_contacted"><i class="bi bi-person-dash-fill"></i> إضافة لم يتم التواصل</a></li>
+        <li class="nav-item"><a class="nav-link" href="/employee_stats"><i class="bi bi-bar-chart-line-fill"></i> إحصائيات الموظفين</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<aside class="elegant-sidebar-hover d-none d-lg-flex">
+    <ul>
+        <li class="sidebar-section">إدارة العملاء</li>
+        <li><a href="/view_clients" title="عرض العملاء"><i class="bi bi-people-fill"></i><span>عرض العملاء</span></a></li>
+        <li><a href="/contact" title="إضافة عميل"><i class="bi bi-person-plus-fill"></i><span>إضافة عميل</span></a></li>
+        <li class="sidebar-section">المقابلات والمتابعة</li>
+        <li><a href="/view_appointments" title="عرض المقابلات"><i class="bi bi-calendar-event-fill"></i><span>عرض المقابلات</span></a></li>
+        <li><a href="/appointment" title="إضافة مقابلة"><i class="bi bi-calendar-plus-fill"></i><span>إضافة مقابلة</span></a></li>
+        <li><a href="/view_followups" title="عرض المتابعة"><i class="bi bi-clock-history"></i><span>عرض المتابعة</span></a></li>
+        <li><a href="/followup" title="إضافة متابعة"><i class="bi bi-arrow-repeat"></i><span>إضافة متابعة</span></a></li>
+        <li class="sidebar-section">أخرى</li>
+        <li><a href="/view_not_contacted" title="عرض لم يتم التواصل معهم"><i class="bi bi-person-x-fill"></i><span>لم يتم التواصل</span></a></li>
+        <li><a href="/not_contacted" title="إضافة لم يتم التواصل معه"><i class="bi bi-person-dash-fill"></i><span>إضافة لم يتم التواصل</span></a></li>
+        <li><a href="/employee_stats" title="إحصائيات الموظفين"><i class="bi bi-bar-chart-line-fill"></i><span>إحصائيات الموظفين</span></a></li>
+    </ul>
+    <div class="sidebar-company text-center mt-auto mb-3">
+        <span class="sidebar-company-name">ELEGANT</span>
+    </div>
+</aside>
     <!-- End Sidebar -->
 
     <!-- Main Content -->
