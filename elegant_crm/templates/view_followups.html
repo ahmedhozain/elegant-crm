@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}عرض المتابعات{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">عرض المتابعات</h2>
+
+<form method="POST" class="row g-3 mb-4">
+    <div class="col-md-4">
+        <label class="form-label">اختر اسم الموظف</label>
+        <select name="employee_name" class="form-select">
+            <option value="">-- اختر --</option>
+            {% for emp in employees %}
+            <option value="{{ emp.employee_name }}" {% if selected_employee == emp.employee_name %}selected{% endif %}>{{ emp.employee_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-4 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary">عرض</button>
+    </div>
+</form>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>اسم الموظف</th>
+                <th>رقم العميل</th>
+                <th>اسم العميل</th>
+                <th>الحالة بعد المتابعة</th>
+                <th>ملاحظات</th>
+                <th>تاريخ المتابعة</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+            <tr>
+                <td>{{ row.employee_name }}</td>
+                <td>{{ row.client_number }}</td>
+                <td>{{ row.client_name }}</td>
+                <td>{{ row.status }}</td>
+                <td>{{ row.notes }}</td>
+                <td>{{ row.followup_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% if not rows %}
+<div class="alert alert-warning text-center mt-4" role="alert">
+    لا توجد نتائج لعرضها.
+</div>
+{% endif %}
+{% endblock %}
