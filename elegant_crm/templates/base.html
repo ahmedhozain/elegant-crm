@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}لوحة التحكم - ELEGANT{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="elegant-body">
+    <!-- Loading Animation -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="canada-flag-anim" style="margin-bottom: 2rem;">
+                <svg id="canada-flag-svg" width="120" height="72" viewBox="0 0 120 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="120" height="72" fill="#fff"/>
+                    <rect x="0" y="0" width="24" height="72" fill="#d32d2f">
+                        <animate attributeName="width" from="0" to="24" dur="0.7s" fill="freeze" />
+                    </rect>
+                    <rect x="96" y="0" width="24" height="72" fill="#d32d2f">
+                        <animate attributeName="width" from="0" to="24" dur="0.7s" fill="freeze" />
+                    </rect>
+                    <g id="maple-leaf">
+                        <path d="M60 16 L63 28 L70 25 L66 34 L75 36 L67 39 L72 46 L62 42 L60 54 L58 42 L48 46 L53 39 L45 36 L54 34 L50 25 L57 28 Z" fill="#d32d2f">
+                            <animate attributeName="fill-opacity" from="0" to="1" begin="0.7s" dur="0.7s" fill="freeze" />
+                        </path>
+                    </g>
+                </svg>
+            </div>
+            <div class="loading-spinner"></div>
+        </div>
+        <div class="powered-by" style="position: absolute; bottom: 18px; right: 24px; color: #fff; font-size: 1.1rem; opacity: 0.85; letter-spacing: 0.04em;">
+            Powered by Ahmed Hozain
+        </div>
+    </div>
+    
+    <!-- Fallback to hide loading screen if JavaScript fails -->
+    <noscript>
+        <style>
+            .loading-screen { display: none !important; }
+        </style>
+    </noscript>
+
+    <!-- Top Bar -->
+    <header class="elegant-topbar">
+        <div class="elegant-topbar-content">
+            <a href="/" class="elegant-topbar-company"><i class="bi bi-building-fill me-2"></i> ELEGANT</a>
+        </div>
+    </header>
+    <!-- End Top Bar -->
+
+    <!-- Sidebar -->
+    <aside class="elegant-sidebar-hover">
+        <ul>
+            <li class="sidebar-section">إدارة العملاء</li>
+            <li><a href="/view_clients" title="عرض العملاء"><i class="bi bi-people-fill"></i><span>عرض العملاء</span></a></li>
+            <li><a href="/contact" title="إضافة عميل"><i class="bi bi-person-plus-fill"></i><span>إضافة عميل</span></a></li>
+            <li class="sidebar-section">المقابلات والمتابعة</li>
+            <li><a href="/view_appointments" title="عرض المقابلات"><i class="bi bi-calendar-event-fill"></i><span>عرض المقابلات</span></a></li>
+            <li><a href="/appointment" title="إضافة مقابلة"><i class="bi bi-calendar-plus-fill"></i><span>إضافة مقابلة</span></a></li>
+            <li><a href="/view_followups" title="عرض المتابعة"><i class="bi bi-clock-history"></i><span>عرض المتابعة</span></a></li>
+            <li><a href="/followup" title="إضافة متابعة"><i class="bi bi-arrow-repeat"></i><span>إضافة متابعة</span></a></li>
+            <li class="sidebar-section">أخرى</li>
+            <li><a href="/view_not_contacted" title="عرض لم يتم التواصل معهم"><i class="bi bi-person-x-fill"></i><span>لم يتم التواصل</span></a></li>
+            <li><a href="/not_contacted" title="إضافة لم يتم التواصل معه"><i class="bi bi-person-dash-fill"></i><span>إضافة لم يتم التواصل</span></a></li>
+            <li><a href="/employee_stats" title="إحصائيات الموظفين"><i class="bi bi-bar-chart-line-fill"></i><span>إحصائيات الموظفين</span></a></li>
+        </ul>
+        <div class="sidebar-company text-center mt-auto mb-3">
+            <span class="sidebar-company-name">ELEGANT</span>
+        </div>
+    </aside>
+    <!-- End Sidebar -->
+
+    <!-- Main Content -->
+    <div class="main-content animate__animated animate__fadeIn">
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="elegant-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2025 ELEGANT . جميع الحقوق محفوظة</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <p>نظام إدارة العملاء المتطور</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/animations.js') }}"></script>
+    <script>
+    // Hide loading screen after 1.5 seconds
+    window.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            var loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) loadingScreen.style.display = 'none';
+        }, 1500);
+    });
+    </script>
+    <style>
+.elegant-sidebar-hover {
+    position: fixed;
+    top: 0;
+    right: -180px;
+    height: 100vh;
+    width: 210px;
+    background: #23272b;
+    z-index: 1040;
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+    box-shadow: -2px 0 8px rgba(0,0,0,0.07);
+    transition: right 0.25s;
+    overflow: hidden;
+}
+.elegant-sidebar-hover:hover {
+    right: 0;
+    box-shadow: -4px 0 16px rgba(0,0,0,0.13);
+}
+.elegant-sidebar-hover ul {
+    list-style: none;
+    padding: 0 0 0 0;
+    margin: 0;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 85vh;
+}
+.elegant-sidebar-hover li {
+    width: 100%;
+    margin-bottom: 8px;
+    text-align: right;
+    font-size: 1.08rem;
+}
+.elegant-sidebar-hover a {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px 18px;
+    border-radius: 8px 0 0 8px;
+    transition: background 0.18s, color 0.18s;
+    font-weight: 500;
+}
+.elegant-sidebar-hover a:hover {
+    background: #444;
+    color: #ffc107;
+}
+.elegant-sidebar-hover i {
+    font-size: 1.45rem;
+    margin-left: 12px;
+    min-width: 28px;
+    text-align: center;
+}
+.sidebar-section {
+    color: #aaa;
+    font-size: 0.98rem;
+    margin: 18px 0 6px 0;
+    padding: 0 18px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+.sidebar-company {
+    padding: 0 0 0 0;
+}
+.sidebar-company-name {
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: bold;
+    letter-spacing: 0.12em;
+    background: #23272b;
+    border-radius: 8px;
+    padding: 8px 0;
+    display: block;
+}
+.elegant-topbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 54px;
+    background: #23272b;
+    z-index: 1100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    display: flex;
+    align-items: center;
+}
+.elegant-topbar-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.elegant-topbar-company {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 0.12em;
+    display: flex;
+    align-items: center;
+}
+body { padding-top: 54px; }
+@media (max-width: 991px) {
+    .elegant-sidebar-hover { width: 100vw; height: auto; position: static; flex-direction: row; padding-top: 0; right: 0; }
+    .elegant-sidebar-hover ul { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; max-height: none; overflow-y: visible; }
+    .elegant-sidebar-hover li { margin-bottom: 0; text-align: center; }
+    .elegant-sidebar-hover a { border-radius: 8px; padding: 8px 10px; font-size: 0.98rem; }
+    .sidebar-section { display: none; }
+    .sidebar-company { display: none; }
+}
+.loading-screen {
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background: #23272b;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 100vh;
+    min-width: 100vw;
+    transition: opacity 0.4s;
+}
+.loading-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.loading-spinner {
+    margin-top: 32px;
+    width: 48px;
+    height: 48px;
+    border: 5px solid #fff;
+    border-top: 5px solid #ffc107;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.powered-by {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 500;
+    pointer-events: none;
+    user-select: none;
+}
+</style>
+</body>
+</html>

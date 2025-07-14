@@ -1,0 +1,246 @@
+{% extends 'base.html' %}
+
+{% block title %}عرض العملاء - ELEGANT{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12">
+        <!-- Page Header -->
+        <div class="elegant-card mb-4">
+            <div class="elegant-card-header">
+                <h2 class="mb-0">
+                    <i class="bi bi-people-fill me-2"></i>
+                    عرض العملاء
+                </h2>
+            </div>
+        </div>
+
+        <!-- Search Form -->
+        <div class="elegant-card mb-4">
+            <div class="card-body p-4">
+                <form method="POST" class="elegant-form">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-person-badge me-1"></i>
+                                اختر اسم الموظف
+                            </label>
+                            <select name="employee_name" class="form-select">
+                                <option value="">جميع الموظفين</option>
+                                {% for emp in employees %}
+                                <option value="{{ emp.employee_name }}" {% if selected_employee == emp.employee_name %}selected{% endif %}>{{ emp.employee_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-search me-1"></i>
+                                ابحث برقم العميل
+                            </label>
+                            <input type="text" name="client_number" class="form-control" 
+                                   placeholder="أدخل رقم العميل" value="{{ searched_number or '' }}">
+                        </div>
+
+                        <div class="col-md-4 mb-3 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary">عرض</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Results Count -->
+        {% if rows %}
+        <div class="elegant-alert elegant-alert-success mb-4">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            تم العثور على {{ rows|length }} عميل
+        </div>
+        {% endif %}
+
+        <!-- Results Table -->
+        {% if rows %}
+        <div class="elegant-card">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="elegant-table">
+                        <thead>
+                            <tr>
+                                <th>اسم الموظف</th>
+                                <th>رقم العميل</th>
+                                <th>اسم العميل</th>
+                                <th>سن العميل</th>
+                                <th>النوع</th>
+                                <th>المحافظة</th>
+                                <th>المؤهل</th>
+                                <th>الحالة الاجتماعية</th>
+                                <th>أطفال</th>
+                                <th>نوع التأشيرة</th>
+                                <th>الاهتمام</th>
+                                <th>ملاحظات</th>
+                                <th>تاريخ التسجيل</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in rows %}
+                            <tr class="interactive-element">
+                                <td>
+                                    <span class="elegant-badge elegant-badge-info">
+                                        {{ row.employee_name }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <strong>{{ row.client_number }}</strong>
+                                </td>
+                                <td>
+                                    <strong>{{ row.client_name }}</strong>
+                                </td>
+                                <td>
+                                    {% if row.client_age %}
+                                        <span class="elegant-badge elegant-badge-info">{{ row.client_age }}</span>
+                                    {% else %}
+                                        <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if row.gender == 'ذكر' %}
+                                        <span class="elegant-badge elegant-badge-info">
+                                            <i class="bi bi-gender-male me-1"></i>
+                                            {{ row.gender }}
+                                        </span>
+                                    {% else %}
+                                        <span class="elegant-badge elegant-badge-warning">
+                                            <i class="bi bi-gender-female me-1"></i>
+                                            {{ row.gender }}
+                                        </span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ row.governorate }}</td>
+                                <td>{{ row.education }}</td>
+                                <td>{{ row.marital_status }}</td>
+                                <td>
+                                    {% if row.has_children == 'نعم' %}
+                                        <span class="elegant-badge elegant-badge-success">
+                                            <i class="bi bi-check-circle-fill me-1"></i>
+                                            {{ row.has_children }}
+                                        </span>
+                                    {% else %}
+                                        <span class="elegant-badge elegant-badge-secondary">
+                                            <i class="bi bi-x-circle-fill me-1"></i>
+                                            {{ row.has_children }}
+                                        </span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <span class="elegant-badge elegant-badge-info">
+                                        {{ row.visa_type }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="elegant-badge elegant-badge-primary">
+                                        {{ row.interest }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {% if row.notes %}
+                                        <span class="text-truncate d-inline-block" style="max-width: 150px;" 
+                                              title="{{ row.notes }}">
+                                            {{ row.notes }}
+                                        </span>
+                                    {% else %}
+                                        <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <small class="text-muted">
+                                        {{ row.created_at.split(' ')[0] if row.created_at else '-' }}
+                                    </small>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <!-- No Results -->
+        <div class="elegant-card">
+            <div class="card-body text-center py-5">
+                <i class="bi bi-search display-1 text-muted mb-3"></i>
+                <h4 class="text-muted">لا توجد نتائج لعرضها</h4>
+                <p class="text-muted">جرب تغيير معايير البحث</p>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Statistics Card -->
+        {% if rows %}
+        <div class="elegant-card mt-4">
+            <div class="card-body">
+                <h5 class="card-title mb-3">
+                    <i class="bi bi-graph-up me-2"></i>
+                    إحصائيات سريعة
+                </h5>
+                <div class="row text-center">
+                    <div class="col-md-3 mb-2">
+                        <div class="elegant-badge elegant-badge-info">
+                            <i class="bi bi-people-fill me-1"></i>
+                            إجمالي العملاء: {{ rows|length }}
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <div class="elegant-badge elegant-badge-success">
+                            <i class="bi bi-check-circle-fill me-1"></i>
+                            مهتمون: {{ rows|selectattr('interest', 'equalto', 'مهتم')|list|length }}
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <div class="elegant-badge elegant-badge-warning">
+                            <i class="bi bi-star-fill me-1"></i>
+                            مهتمون جداً: {{ rows|selectattr('interest', 'equalto', 'مهتم جداً')|list|length }}
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <div class="elegant-badge elegant-badge-danger">
+                            <i class="bi bi-x-circle-fill me-1"></i>
+                            غير مهتمين: {{ rows|selectattr('interest', 'equalto', 'غير مهتم')|list|length }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+<style>
+.elegant-table th, .elegant-table td {
+    vertical-align: middle;
+    text-align: center;
+}
+.elegant-table th {
+    background: #dc3545;
+    color: #fff;
+    font-weight: 600;
+    border-bottom: 2px solid #b71c1c;
+}
+.elegant-table tr {
+    background: #fff;
+    transition: background 0.2s;
+}
+.elegant-table tr.interactive-element:hover {
+    background: #ffeaea;
+}
+.elegant-badge-primary, .elegant-badge-info, .elegant-badge-success, .elegant-badge-warning, .elegant-badge-danger, .elegant-badge-secondary {
+    background: #dc3545 !important;
+    color: #fff !important;
+    border-radius: 8px;
+    padding: 4px 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0 2px;
+    display: inline-block;
+}
+</style>
