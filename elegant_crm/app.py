@@ -8,15 +8,9 @@ app = Flask(__name__)
 app.secret_key = 'elegant_secret_2025'
 DATABASE = 'database.db'
 
-# ===== قاعدة البيانات =====
-def get_db_connection():
-    conn = sqlite3.connect(DATABASE)
-    conn.row_factory = sqlite3.Row
-    return conn
-
 def init_db():
     if not os.path.exists(DATABASE):
-        conn = get_db_connection()
+        conn = sqlite3.connect(DATABASE)
         with conn:
             conn.executescript('''
                 CREATE TABLE IF NOT EXISTS clients (
@@ -57,6 +51,13 @@ def init_db():
                 );
             ''')
         conn.close()
+
+init_db()
+
+def get_db_connection():
+    conn = sqlite3.connect(DATABASE)
+    conn.row_factory = sqlite3.Row
+    return conn
 
 def ensure_all_tables_exist():
     conn = sqlite3.connect('database.db')
@@ -136,7 +137,7 @@ def contact():
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', (
             data['employee_name'], data['client_number'], data['client_name'],
-            data.get('client_age', None),
+            int(data['client_age']),
             data['gender'], data['governorate'], data['education'],
             data['marital_status'], data.get('has_children', ''),
             data['visa_type'], data['interest'], data.get('interest_level', ''),
@@ -365,6 +366,11 @@ def login():
         else:
             error = True
     return render_template('employee_stats_login.html', error=error)
+
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    return redirect(url_for('login'))
 
 def login_required(f):
     @wraps(f)
