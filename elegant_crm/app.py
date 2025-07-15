@@ -124,9 +124,9 @@ def view_followups():
         if searched_number:
             query += ' AND client_number = ?'
             params.append(searched_number)
-        rows = conn.execute(query, params).fetchall()
-    else:
-        rows = conn.execute('SELECT * FROM followups').fetchall()
+        if selected_employee or searched_number:
+            rows = conn.execute(query, params).fetchall()
+    # else: do not show any rows
     conn.close()
     return render_template('view_followups.html', rows=rows, employees=employees, selected_employee=selected_employee, searched_number=searched_number)
 
@@ -158,9 +158,9 @@ def view_clients():
         if end_date:
             query += ' AND date(created_at) <= date(?)'
             params.append(end_date)
-        rows = conn.execute(query, params).fetchall()
-    else:
-        rows = conn.execute('SELECT * FROM clients').fetchall()
+        if searched_number or selected_employee or start_date or end_date:
+            rows = conn.execute(query, params).fetchall()
+    # else: do not show any rows
     conn.close()
     return render_template('view_clients.html', rows=rows, employees=employees, selected_employee=selected_employee, searched_number=searched_number, start_date=start_date, end_date=end_date)
 
@@ -343,12 +343,14 @@ def view_not_contacted():
     employees = conn.execute('SELECT DISTINCT employee_name FROM not_contacted').fetchall()
     if request.method == 'POST':
         selected_employee = request.form.get('employee_name', '')
+        query = 'SELECT * FROM not_contacted WHERE 1=1'
+        params = []
         if selected_employee:
-            rows = conn.execute('SELECT * FROM not_contacted WHERE employee_name = ?', (selected_employee,)).fetchall()
-        else:
-            rows = conn.execute('SELECT * FROM not_contacted').fetchall()
-    else:
-        rows = conn.execute('SELECT * FROM not_contacted').fetchall()
+            query += ' AND employee_name = ?'
+            params.append(selected_employee)
+        if selected_employee:
+            rows = conn.execute(query, params).fetchall()
+    # else: do not show any rows
     conn.close()
     return render_template('view_not_contacted.html', rows=rows, employees=employees, selected_employee=selected_employee)
 
@@ -426,21 +428,32 @@ def complete_interview(appointment_id):
 
 @app.route('/view_completed_interviews')
 def view_completed_interviews():
+    rows = []
+    selected_employee = ''
     conn = get_db_connection()
-    conn.execute('''
-        CREATE TABLE IF NOT EXISTS completed_interviews (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            employee_name TEXT,
-            client_name TEXT,
-            client_number TEXT,
-            client_status TEXT,
-            notes TEXT,
-            interviewer TEXT,
-            created_at TIMESTAMP
-        )''')
-    rows = conn.execute('SELECT * FROM completed_interviews ORDER BY created_at DESC').fetchall()
+    conn.execute('''CREATE TABLE IF NOT EXISTS completed_interviews (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        employee_name TEXT,
+        client_name TEXT,
+        client_number TEXT,
+        client_status TEXT,
+        notes TEXT,
+        interviewer TEXT,
+        created_at TIMESTAMP
+    )''')
+    employees = conn.execute('SELECT DISTINCT employee_name FROM completed_interviews').fetchall()
+    if request.method == 'POST':
+        selected_employee = request.form.get('employee_name', '')
+        query = 'SELECT * FROM completed_interviews WHERE 1=1'
+        params = []
+        if selected_employee:
+            query += ' AND employee_name = ?'
+            params.append(selected_employee)
+        if selected_employee:
+            rows = conn.execute(query, params).fetchall()
+    # else: do not show any rows
     conn.close()
-    return render_template('view_completed_interviews.html', rows=rows)
+    return render_template('view_completed_interviews.html', rows=rows, employees=employees, selected_employee=selected_employee)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
