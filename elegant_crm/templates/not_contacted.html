@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}إضافة عميل لم يتم التواصل معه{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">إضافة عميل لم يتم التواصل معه</h2>
+    <form method="POST" class="row g-3">
+        <div class="col-md-6">
+            <label class="form-label">اسم الموظف</label>
+            <select name="employee_name" class="form-select" required>
+                <option value="" disabled selected>اختر موظف</option>
+                <option value="احمد محمد">احمد محمد</option>
+                <option value="احمد البسيوني">احمد البسيوني</option>
+                <option value="محمد ياسر">محمد ياسر</option>
+                <option value="محمد فارس">محمد فارس</option>
+                <option value="يوسف عصمت">يوسف عصمت</option>
+                <option value="استاذ محمد">استاذ محمد</option>
+                <option value="رحمه">رحمه</option>
+                <option value="شروق">شروق</option>
+                <option value="منه عادل">منه عادل</option>
+                <option value="فاطمه">فاطمه</option>
+                <option value="رضوي">رضوي</option>
+                <option value="امنيه محمد">امنيه محمد</option>
+                <option value="ايه عبد العال">ايه عبد العال</option>
+                <option value="ايمان حسن">ايمان حسن</option>
+                <option value="يؤنا">يؤنا</option>
+                <option value="الاء">الاء</option>
+                <option value="محمود عماد">محمود عماد</option>
+                <option value="محمود هشام">محمود هشام</option>
+                <option value="تبارك">تبارك</option>
+                <option value="ملك بهاء">ملك بهاء</option>
+                <option value="شيماء عزت">شيماء عزت</option>
+                <option value="نورهان ونس">نورهان ونس</option>
+                <option value="نانسي منير">نانسي منير</option>
+                <option value="ندي مصطفي">ندي مصطفي</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">رقم العميل</label>
+            <input type="text" name="client_number" class="form-control" required placeholder="أدخل رقم العميل">
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">ملاحظات</label>
+            <input type="text" name="notes" class="form-control" placeholder="أدخل ملاحظات">
+        </div>
+        <div class="col-12 text-center">
+            <button type="submit" class="elegant-btn">إضافة</button>
+        </div>
+    </form>
+</div>
+{% endblock %} 
