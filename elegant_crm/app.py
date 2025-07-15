@@ -168,18 +168,31 @@ def view_clients():
 def view_appointments():
     rows = []
     selected_employee = ''
+    start_date = ''
+    end_date = ''
     conn = get_db_connection()
     employees = conn.execute('SELECT DISTINCT employee_name FROM appointments').fetchall()
     if request.method == 'POST':
         selected_employee = request.form.get('employee_name', '')
+        start_date = request.form.get('start_date', '')
+        end_date = request.form.get('end_date', '')
+        query = 'SELECT * FROM appointments WHERE 1=1'
+        params = []
         if selected_employee:
-            rows = conn.execute('SELECT * FROM appointments WHERE employee_name = ?', (selected_employee,)).fetchall()
-        else:
-            rows = conn.execute('SELECT * FROM appointments').fetchall()
-    else:
-        rows = conn.execute('SELECT * FROM appointments').fetchall()
+            query += ' AND employee_name = ?'
+            params.append(selected_employee)
+        if start_date:
+            query += ' AND date(appointment_date) >= date(?)'
+            params.append(start_date)
+        if end_date:
+            query += ' AND date(appointment_date) <= date(?)'
+            params.append(end_date)
+        # Only show results if at least one filter is provided
+        if selected_employee or start_date or end_date:
+            rows = conn.execute(query, params).fetchall()
+    # else: do not show any rows
     conn.close()
-    return render_template('view_appointments.html', rows=rows, employees=employees, selected_employee=selected_employee)
+    return render_template('view_appointments.html', rows=rows, employees=employees, selected_employee=selected_employee, start_date=start_date, end_date=end_date)
 
 @app.route('/appointment', methods=['GET', 'POST'])
 def appointment():
