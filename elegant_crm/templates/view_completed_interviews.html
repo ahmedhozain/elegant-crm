@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}عرض المقابلات المكتملة - ELEGANT{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <!-- Page Header -->
+        <div class="elegant-card mb-4">
+            <div class="elegant-card-header bg-info text-white">
+                <h2 class="mb-0">
+                    <i class="bi bi-list-check me-2"></i>
+                    جدول المقابلات المكتملة
+                </h2>
+            </div>
+        </div>
+        <div class="elegant-card">
+            <div class="card-body p-4">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover align-middle text-center">
+                        <thead class="table-light">
+                            <tr>
+                                <th>اسم الموظف</th>
+                                <th>اسم العميل</th>
+                                <th>رقم العميل</th>
+                                <th>حالة العميل</th>
+                                <th>المحاور</th>
+                                <th>ملاحظات</th>
+                                <th>تاريخ الإضافة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in rows %}
+                            <tr>
+                                <td>{{ row.employee_name }}</td>
+                                <td>{{ row.client_name }}</td>
+                                <td>{{ row.client_number }}</td>
+                                <td>{{ row.client_status }}</td>
+                                <td>{{ row.interviewer }}</td>
+                                <td>{{ row.notes }}</td>
+                                <td>{{ row.created_at }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

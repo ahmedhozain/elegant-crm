@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>إكمال مقابلة</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-success text-white text-center">
+                        <h4 class="mb-0"><i class="bi bi-person-check-fill me-2"></i>إكمال مقابلة للموعد</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            <div class="mb-3">
+                                <label class="form-label">اسم الموظف</label>
+                                <input type="text" class="form-control" value="{{ appointment.employee_name }}" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">اسم العميل</label>
+                                <input type="text" class="form-control" value="{{ appointment.client_name }}" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">رقم العميل</label>
+                                <input type="text" class="form-control" value="{{ appointment.client_phone }}" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">المحاور</label>
+                                <select name="interviewer" class="form-select" required>
+                                    {% for interviewer in interviewers %}
+                                        <option value="{{ interviewer }}">{{ interviewer }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">ملاحظات</label>
+                                <textarea name="notes" class="form-control"></textarea>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success btn-lg">حفظ كمقابلة مكتملة</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

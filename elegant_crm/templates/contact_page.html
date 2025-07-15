@@ -1,0 +1,364 @@
+{% extends 'base.html' %}
+
+{% block title %}تم التواصل - ELEGANT{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <!-- Page Header -->
+        <div class="elegant-card mb-4">
+            <div class="elegant-card-header">
+                <h2 class="mb-0">
+                    <i class="bi bi-person-plus-fill me-2"></i>
+                    تسجيل عميل جديد - تم التواصل
+                </h2>
+            </div>
+        </div>
+
+        <!-- Success Alert (if any) -->
+        {% if request.method == 'POST' and not error %}
+        <div class="elegant-alert elegant-alert-success">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            تم تسجيل العميل بنجاح!
+        </div>
+        {% endif %}
+
+        <!-- Error Alert (if any) -->
+        {% if error %}
+        <div class="elegant-alert elegant-alert-danger">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <!-- Main Form -->
+        <div class="elegant-card">
+            <div class="card-body p-4">
+                <form method="POST" class="elegant-form">
+                    <div class="row">
+                        <!-- Employee Name -->
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-person-badge me-1"></i>
+                                اسم الموظف
+                            </label>
+                            <select name="employee_name" class="form-select" required>
+                                <option value="" disabled {% if not form_data and not request.form.get('employee_name') %}selected{% endif %}>اختر الموظف</option>
+                                <option value="احمد محمد" {% if (form_data and form_data.employee_name == 'احمد محمد') or request.form.get('employee_name') == 'احمد محمد' %}selected{% endif %}>احمد محمد</option>
+                                <option value="احمد البسيوني" {% if (form_data and form_data.employee_name == 'احمد البسيوني') or request.form.get('employee_name') == 'احمد البسيوني' %}selected{% endif %}>احمد البسيوني</option>
+                                <option value="محمد ياسر" {% if (form_data and form_data.employee_name == 'محمد ياسر') or request.form.get('employee_name') == 'محمد ياسر' %}selected{% endif %}>محمد ياسر</option>
+                                <option value="محمد فارس" {% if (form_data and form_data.employee_name == 'محمد فارس') or request.form.get('employee_name') == 'محمد فارس' %}selected{% endif %}>محمد فارس</option>
+                                <option value="يوسف عصمت" {% if (form_data and form_data.employee_name == 'يوسف عصمت') or request.form.get('employee_name') == 'يوسف عصمت' %}selected{% endif %}>يوسف عصمت</option>
+                                <option value="استاذ محمد" {% if (form_data and form_data.employee_name == 'استاذ محمد') or request.form.get('employee_name') == 'استاذ محمد' %}selected{% endif %}>استاذ محمد</option>
+                                <option value="رحمه" {% if (form_data and form_data.employee_name == 'رحمه') or request.form.get('employee_name') == 'رحمه' %}selected{% endif %}>رحمه</option>
+                                <option value="شروق" {% if (form_data and form_data.employee_name == 'شروق') or request.form.get('employee_name') == 'شروق' %}selected{% endif %}>شروق</option>
+                                <option value="منه عادل" {% if (form_data and form_data.employee_name == 'منه عادل') or request.form.get('employee_name') == 'منه عادل' %}selected{% endif %}>منه عادل</option>
+                                <option value="فاطمه" {% if (form_data and form_data.employee_name == 'فاطمه') or request.form.get('employee_name') == 'فاطمه' %}selected{% endif %}>فاطمه</option>
+                                <option value="رضوي" {% if (form_data and form_data.employee_name == 'رضوي') or request.form.get('employee_name') == 'رضوي' %}selected{% endif %}>رضوي</option>
+                                <option value="امنيه محمد" {% if (form_data and form_data.employee_name == 'امنيه محمد') or request.form.get('employee_name') == 'امنيه محمد' %}selected{% endif %}>امنيه محمد</option>
+                                <option value="ايه عبد العال" {% if (form_data and form_data.employee_name == 'ايه عبد العال') or request.form.get('employee_name') == 'ايه عبد العال' %}selected{% endif %}>ايه عبد العال</option>
+                                <option value="ايمان حسن" {% if (form_data and form_data.employee_name == 'ايمان حسن') or request.form.get('employee_name') == 'ايمان حسن' %}selected{% endif %}>ايمان حسن</option>
+                                <option value="يؤنا" {% if (form_data and form_data.employee_name == 'يؤنا') or request.form.get('employee_name') == 'يؤنا' %}selected{% endif %}>يؤنا</option>
+                                <option value="الاء" {% if (form_data and form_data.employee_name == 'الاء') or request.form.get('employee_name') == 'الاء' %}selected{% endif %}>الاء</option>
+                                <option value="محمود عماد" {% if (form_data and form_data.employee_name == 'محمود عماد') or request.form.get('employee_name') == 'محمود عماد' %}selected{% endif %}>محمود عماد</option>
+                                <option value="محمود هشام" {% if (form_data and form_data.employee_name == 'محمود هشام') or request.form.get('employee_name') == 'محمود هشام' %}selected{% endif %}>محمود هشام</option>
+                                <option value="تبارك" {% if (form_data and form_data.employee_name == 'تبارك') or request.form.get('employee_name') == 'تبارك' %}selected{% endif %}>تبارك</option>
+                                <option value="ملك بهاء" {% if (form_data and form_data.employee_name == 'ملك بهاء') or request.form.get('employee_name') == 'ملك بهاء' %}selected{% endif %}>ملك بهاء</option>
+                                <option value="شيماء عزت" {% if (form_data and form_data.employee_name == 'شيماء عزت') or request.form.get('employee_name') == 'شيماء عزت' %}selected{% endif %}>شيماء عزت</option>
+                                <option value="نورهان ونس" {% if (form_data and form_data.employee_name == 'نورهان ونس') or request.form.get('employee_name') == 'نورهان ونس' %}selected{% endif %}>نورهان ونس</option>
+                                <option value="نانسي منير" {% if (form_data and form_data.employee_name == 'نانسي منير') or request.form.get('employee_name') == 'نانسي منير' %}selected{% endif %}>نانسي منير</option>
+                                <option value="ندي مصطفي" {% if (form_data and form_data.employee_name == 'ندي مصطفي') or request.form.get('employee_name') == 'ندي مصطفي' %}selected{% endif %}>ندي مصطفي</option>
+                            </select>
+                        </div>
+
+                        <!-- Client Number -->
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-telephone me-1"></i>
+                                رقم العميل
+                            </label>
+                            <input type="text" name="client_number" class="form-control" required 
+                                   placeholder="أدخل رقم العميل" value="{{ (form_data.client_number if form_data else request.form.get('client_number', '')) }}">
+                            {% if existing_client_name and existing_employee_name %}
+                            <div class="text-danger mt-1">
+                                <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                                هذا الرقم مسجل بالفعل باسم موظف: <b>{{ existing_employee_name }}</b> واسم العميل: <b>{{ existing_client_name }}</b>
+                            </div>
+                            {% elif existing_client_name %}
+                            <div class="text-danger mt-1">
+                                <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                                هذا الرقم مسجل بالفعل باسم: <b>{{ existing_client_name }}</b>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Client Name -->
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-person me-1"></i>
+                                اسم العميل
+                            </label>
+                            <input type="text" name="client_name" class="form-control" required 
+                                   placeholder="أدخل اسم العميل" value="{{ (form_data.client_name if form_data else request.form.get('client_name', '')) }}">
+                        </div>
+                        <!-- Client Age -->
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-calendar me-1"></i>
+                                سن العميل
+                            </label>
+                            <input type="number" name="client_age" class="form-control" min="1" max="120" placeholder="أدخل سن العميل" required value="{{ (form_data.client_age if form_data else request.form.get('client_age', '')) }}">
+                        </div>
+
+                        <!-- Gender -->
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-gender-ambiguous me-1"></i>
+                                النوع
+                            </label>
+                            <select name="gender" class="form-select" required>
+                                <option value="" disabled {% if not form_data and not request.form.get('gender') %}selected{% endif %}>اختر النوع</option>
+                                <option value="ذكر" {% if (form_data and form_data.gender == 'ذكر') or request.form.get('gender') == 'ذكر' %}selected{% endif %}>ذكر</option>
+                                <option value="أنثى" {% if (form_data and form_data.gender == 'أنثى') or request.form.get('gender') == 'أنثى' %}selected{% endif %}>أنثى</option>
+                            </select>
+                        </div>
+
+                        <!-- Governorate -->
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-geo-alt me-1"></i>
+                                المحافظة
+                            </label>
+                            <select name="governorate" class="form-select" required>
+                                <option value="" disabled {% if not form_data and not request.form.get('governorate') %}selected{% endif %}>اختر المحافظة</option>
+                                <option value="القاهرة" {% if (form_data and form_data.governorate == 'القاهرة') or request.form.get('governorate') == 'القاهرة' %}selected{% endif %}>القاهرة</option>
+                                <option value="الجيزة" {% if (form_data and form_data.governorate == 'الجيزة') or request.form.get('governorate') == 'الجيزة' %}selected{% endif %}>الجيزة</option>
+                                <option value="الإسكندرية" {% if (form_data and form_data.governorate == 'الإسكندرية') or request.form.get('governorate') == 'الإسكندرية' %}selected{% endif %}>الإسكندرية</option>
+                                <option value="الشرقية" {% if (form_data and form_data.governorate == 'الشرقية') or request.form.get('governorate') == 'الشرقية' %}selected{% endif %}>الشرقية</option>
+                                <option value="الغربية" {% if (form_data and form_data.governorate == 'الغربية') or request.form.get('governorate') == 'الغربية' %}selected{% endif %}>الغربية</option>
+                                <option value="المنوفية" {% if (form_data and form_data.governorate == 'المنوفية') or request.form.get('governorate') == 'المنوفية' %}selected{% endif %}>المنوفية</option>
+                                <option value="القليوبية" {% if (form_data and form_data.governorate == 'القليوبية') or request.form.get('governorate') == 'القليوبية' %}selected{% endif %}>القليوبية</option>
+                                <option value="البحيرة" {% if (form_data and form_data.governorate == 'البحيرة') or request.form.get('governorate') == 'البحيرة' %}selected{% endif %}>البحيرة</option>
+                                <option value="كفر الشيخ" {% if (form_data and form_data.governorate == 'كفر الشيخ') or request.form.get('governorate') == 'كفر الشيخ' %}selected{% endif %}>كفر الشيخ</option>
+                                <option value="دمياط" {% if (form_data and form_data.governorate == 'دمياط') or request.form.get('governorate') == 'دمياط' %}selected{% endif %}>دمياط</option>
+                                <option value="الدقهلية" {% if (form_data and form_data.governorate == 'الدقهلية') or request.form.get('governorate') == 'الدقهلية' %}selected{% endif %}>الدقهلية</option>
+                                <option value="المنيا" {% if (form_data and form_data.governorate == 'المنيا') or request.form.get('governorate') == 'المنيا' %}selected{% endif %}>المنيا</option>
+                                <option value="أسيوط" {% if (form_data and form_data.governorate == 'أسيوط') or request.form.get('governorate') == 'أسيوط' %}selected{% endif %}>أسيوط</option>
+                                <option value="سوهاج" {% if (form_data and form_data.governorate == 'سوهاج') or request.form.get('governorate') == 'سوهاج' %}selected{% endif %}>سوهاج</option>
+                                <option value="قنا" {% if (form_data and form_data.governorate == 'قنا') or request.form.get('governorate') == 'قنا' %}selected{% endif %}>قنا</option>
+                                <option value="الأقصر" {% if (form_data and form_data.governorate == 'الأقصر') or request.form.get('governorate') == 'الأقصر' %}selected{% endif %}>الأقصر</option>
+                                <option value="أسوان" {% if (form_data and form_data.governorate == 'أسوان') or request.form.get('governorate') == 'أسوان' %}selected{% endif %}>أسوان</option>
+                                <option value="بني سويف" {% if (form_data and form_data.governorate == 'بني سويف') or request.form.get('governorate') == 'بني سويف' %}selected{% endif %}>بني سويف</option>
+                                <option value="الفيوم" {% if (form_data and form_data.governorate == 'الفيوم') or request.form.get('governorate') == 'الفيوم' %}selected{% endif %}>الفيوم</option>
+                                <option value="المنيا" {% if (form_data and form_data.governorate == 'المنيا') or request.form.get('governorate') == 'المنيا' %}selected{% endif %}>المنيا</option>
+                                <option value="أخرى" {% if (form_data and form_data.governorate == 'أخرى') or request.form.get('governorate') == 'أخرى' %}selected{% endif %}>أخرى</option>
+                            </select>
+                        </div>
+
+                        <!-- Education -->
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-mortarboard me-1"></i>
+                                المؤهل
+                            </label>
+                            <select name="education" class="form-select" required>
+                                <option value="" disabled {% if not form_data and not request.form.get('education') %}selected{% endif %}>اختر المؤهل</option>
+                                <option value="بدون مؤهل" {% if (form_data and form_data.education == 'بدون مؤهل') or request.form.get('education') == 'بدون مؤهل' %}selected{% endif %}>بدون مؤهل</option>
+                                <option value="ابتدائي" {% if (form_data and form_data.education == 'ابتدائي') or request.form.get('education') == 'ابتدائي' %}selected{% endif %}>ابتدائي</option>
+                                <option value="اعدادي" {% if (form_data and form_data.education == 'اعدادي') or request.form.get('education') == 'اعدادي' %}selected{% endif %}>اعدادي</option>
+                                <option value="ثانوي" {% if (form_data and form_data.education == 'ثانوي') or request.form.get('education') == 'ثانوي' %}selected{% endif %}>ثانوي</option>
+                                <option value="دبلوم" {% if (form_data and form_data.education == 'دبلوم') or request.form.get('education') == 'دبلوم' %}selected{% endif %}>دبلوم</option>
+                                <option value="جامعي" {% if (form_data and form_data.education == 'جامعي') or request.form.get('education') == 'جامعي' %}selected{% endif %}>جامعي</option>
+                                <option value="ماجستير" {% if (form_data and form_data.education == 'ماجستير') or request.form.get('education') == 'ماجستير' %}selected{% endif %}>ماجستير</option>
+                                <option value="دكتوراه" {% if (form_data and form_data.education == 'دكتوراه') or request.form.get('education') == 'دكتوراه' %}selected{% endif %}>دكتوراه</option>
+                            </select>
+                        </div>
+
+                        <!-- Marital Status -->
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-heart me-1"></i>
+                                الحالة الاجتماعية
+                            </label>
+                            <select name="marital_status" id="marital_status" class="form-select" required>
+                                <option value="" disabled {% if not form_data and not request.form.get('marital_status') %}selected{% endif %}>اختر الحالة الاجتماعية</option>
+                                <option value="أعزب" {% if (form_data and form_data.marital_status == 'أعزب') or request.form.get('marital_status') == 'أعزب' %}selected{% endif %}>أعزب</option>
+                                <option value="متزوج" {% if (form_data and form_data.marital_status == 'متزوج') or request.form.get('marital_status') == 'متزوج' %}selected{% endif %}>متزوج</option>
+                                <option value="مطلق" {% if (form_data and form_data.marital_status == 'مطلق') or request.form.get('marital_status') == 'مطلق' %}selected{% endif %}>مطلق</option>
+                                <option value="أرمل" {% if (form_data and form_data.marital_status == 'أرمل') or request.form.get('marital_status') == 'أرمل' %}selected{% endif %}>أرمل</option>
+                            </select>
+                        </div>
+
+                        <!-- Has Children -->
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-people me-1"></i>
+                                هل لديه أطفال؟
+                            </label>
+                            <select name="has_children" id="has_children" class="form-select" required {% if (form_data and form_data.marital_status == 'أعزب') or request.form.get('marital_status') == 'أعزب' %}disabled{% endif %}>
+                                <option value="" disabled {% if not form_data and not request.form.get('has_children') %}selected{% endif %}>اختر إذا كان لديه أطفال</option>
+                                <option value="نعم" {% if (form_data and form_data.has_children == 'نعم') or request.form.get('has_children') == 'نعم' %}selected{% endif %}>نعم</option>
+                                <option value="لا" {% if (form_data and form_data.has_children == 'لا') or request.form.get('has_children') == 'لا' or (form_data and form_data.marital_status == 'أعزب') or request.form.get('marital_status') == 'أعزب' %}selected{% endif %}>لا</option>
+                            </select>
+                        </div>
+
+                        <!-- Visa Type -->
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-passport me-1"></i>
+                                نوع التأشيرة
+                            </label>
+                            <select name="visa_type" class="form-select" required>
+                                <option value="" disabled {% if not form_data and not request.form.get('visa_type') %}selected{% endif %}>اختر نوع التأشيرة</option>
+                                <option value="سياحة" {% if (form_data and form_data.visa_type == 'سياحة') or request.form.get('visa_type') == 'سياحة' %}selected{% endif %}>سياحة</option>
+                                <option value="زيارة" {% if (form_data and form_data.visa_type == 'زيارة') or request.form.get('visa_type') == 'زيارة' %}selected{% endif %}>زيارة</option>
+                                <option value="هجرة" {% if (form_data and form_data.visa_type == 'هجرة') or request.form.get('visa_type') == 'هجرة' %}selected{% endif %}>هجرة</option>
+                                <option value="دراسة" {% if (form_data and form_data.visa_type == 'دراسة') or request.form.get('visa_type') == 'دراسة' %}selected{% endif %}>دراسة</option>
+                            </select>
+                        </div>
+
+                        <!-- Interest -->
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-star me-1"></i>
+                                مدى الاهتمام
+                            </label>
+                            <select name="interest" id="interest" class="form-select" required>
+                                <option value="" disabled {% if not form_data and not request.form.get('interest') %}selected{% endif %}>اختر مدى الاهتمام</option>
+                                <option value="مهتم" {% if (form_data and form_data.interest == 'مهتم') or request.form.get('interest') == 'مهتم' %}selected{% endif %}>مهتم</option>
+                                <option value="غير مهتم" {% if (form_data and form_data.interest == 'غير مهتم') or request.form.get('interest') == 'غير مهتم' %}selected{% endif %}>غير مهتم</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3" id="interest_dynamic_col">
+                            <div id="interest_level_group" style="display:none;">
+                                <label class="form-label">نسبة الاهتمام</label>
+                                <select name="interest_level" id="interest_level" class="form-select">
+                                    <option value="" disabled selected>اختر نسبة الاهتمام</option>
+                                    <option value="25-50" {% if (form_data and form_data.interest_level == '25-50') or request.form.get('interest_level') == '25-50' %}selected{% endif %}>25-50</option>
+                                    <option value="26-75" {% if (form_data and form_data.interest_level == '26-75') or request.form.get('interest_level') == '26-75' %}selected{% endif %}>26-75</option>
+                                    <option value="76-100" {% if (form_data and form_data.interest_level == '76-100') or request.form.get('interest_level') == '76-100' %}selected{% endif %}>76-100</option>
+                                </select>
+                            </div>
+                            <div id="not_interested_reason_group" style="display:none;">
+                                <label class="form-label">سبب عدم الاهتمام</label>
+                                <input type="text" name="not_interested_reason" id="not_interested_reason" class="form-control" placeholder="أدخل سبب عدم الاهتمام" value="{{ (form_data.not_interested_reason if form_data else request.form.get('not_interested_reason', '')) }}">
+                            </div>
+                        </div>
+
+                        <!-- Notes -->
+                        <div class="col-12 mb-4">
+                            <label class="form-label">
+                                <i class="bi bi-journal-text me-1"></i>
+                                ملاحظات
+                            </label>
+                            <textarea name="notes" class="form-control" rows="4" 
+                                      placeholder="أدخل أي ملاحظات إضافية...">{{ (form_data.notes if form_data else request.form.get('notes', '')) }}</textarea>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center">
+                        <button type="submit" class="elegant-btn elegant-btn-primary">
+                            <i class="bi bi-plus-circle-fill me-2"></i>
+                            تسجيل العميل
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Quick Stats Card -->
+        <div class="elegant-card mt-4">
+            <div class="card-body">
+                <h5 class="card-title mb-3">
+                    <i class="bi bi-graph-up me-2"></i>
+                    إحصائيات سريعة
+                </h5>
+                <div class="row text-center">
+                    <div class="col-md-3 mb-2">
+                        <div class="elegant-badge elegant-badge-info">
+                            <i class="bi bi-people-fill me-1"></i>
+                            العملاء الجدد
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <div class="elegant-badge elegant-badge-success">
+                            <i class="bi bi-check-circle-fill me-1"></i>
+                            تم التواصل
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <div class="elegant-badge elegant-badge-warning">
+                            <i class="bi bi-clock-fill me-1"></i>
+                            في الانتظار
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <div class="elegant-badge elegant-badge-danger">
+                            <i class="bi bi-x-circle-fill me-1"></i>
+                            مرفوض
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var maritalStatus = document.getElementById('marital_status');
+    var hasChildren = document.getElementById('has_children');
+    var interest = document.getElementById('interest');
+    var interestLevelGroup = document.getElementById('interest_level_group');
+    var interestLevel = document.getElementById('interest_level');
+    var notInterestedReasonGroup = document.getElementById('not_interested_reason_group');
+    var notInterestedReason = document.getElementById('not_interested_reason');
+
+    if (maritalStatus && hasChildren) {
+        maritalStatus.addEventListener('change', function() {
+            if (this.value === 'أعزب') {
+                hasChildren.value = 'لا';
+                hasChildren.setAttribute('disabled', 'disabled');
+            } else {
+                hasChildren.removeAttribute('disabled');
+                hasChildren.value = '';
+            }
+        });
+        if (maritalStatus.value === 'أعزب') {
+            hasChildren.value = 'لا';
+            hasChildren.setAttribute('disabled', 'disabled');
+        }
+    }
+
+    function updateInterestFields() {
+        if (interest.value === 'مهتم') {
+            interestLevelGroup.style.display = 'block';
+            interestLevel.setAttribute('required', 'required');
+            notInterestedReasonGroup.style.display = 'none';
+            notInterestedReason.removeAttribute('required');
+        } else if (interest.value === 'غير مهتم') {
+            interestLevelGroup.style.display = 'none';
+            interestLevel.removeAttribute('required');
+            notInterestedReasonGroup.style.display = 'block';
+            notInterestedReason.setAttribute('required', 'required');
+        } else {
+            interestLevelGroup.style.display = 'none';
+            interestLevel.removeAttribute('required');
+            notInterestedReasonGroup.style.display = 'none';
+            notInterestedReason.removeAttribute('required');
+        }
+    }
+    if (interest) {
+        interest.addEventListener('change', updateInterestFields);
+        updateInterestFields();
+    }
+});
+</script>
+<style>
+#interest_level_group, #not_interested_reason_group {
+    margin-bottom: 0.5rem;
+    transition: all 0.2s;
+}
+</style>
