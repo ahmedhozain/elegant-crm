@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% block title %}إحصائيات الموظفين{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="elegant-card p-4">
+                <h3 class="mb-4 text-center">إحصائيات الموظفين</h3>
+                <form method="POST" class="row g-3 mb-4" id="stats-form">
+                    <div class="col-md-6">
+                        <label class="form-label">اسم الموظف</label>
+                        <select name="employee_name" class="form-select" required>
+                            <option value="" disabled selected>اختر الموظف</option>
+                            {% for emp in employees %}
+                                {% if emp.employee_name %}
+                                    <option value="{{ emp.employee_name }}" {% if selected_employee == emp.employee_name %}selected{% endif %}>{{ emp.employee_name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">من تاريخ</label>
+                        <input type="date" name="start_date" class="form-control" value="{{ start_date }}">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">إلى تاريخ</label>
+                        <input type="date" name="end_date" class="form-control" value="{{ end_date }}">
+                    </div>
+                    <div class="col-12 text-center d-flex justify-content-center gap-2">
+                        <button type="submit" class="btn btn-primary">عرض الإحصائيات</button>
+                    </div>
+                </form>
+                {% if stats %}
+                <div class="row g-4 justify-content-center mb-3">
+                    <div class="col-md-4 col-6">
+                        <div class="elegant-card text-center py-4 shadow-sm h-100" style="min-height:120px;">
+                            <div class="text-muted mb-2" style="font-size:1.1rem; font-weight:600;">عدد العملاء المضافين</div>
+                            <div class="fw-bold" style="font-size:2.2rem; color:#0d6efd;">{{ stats.total }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-6">
+                        <div class="elegant-card text-center py-4 shadow-sm h-100" style="min-height:120px;">
+                            <div class="text-muted mb-2" style="font-size:1.1rem; font-weight:600;">عدد المتابعات</div>
+                            <div class="fw-bold" style="font-size:2.2rem; color:#198754;">{{ stats.followups }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-6">
+                        <div class="elegant-card text-center py-4 shadow-sm h-100" style="min-height:120px;">
+                            <div class="text-muted mb-2" style="font-size:1.1rem; font-weight:600;">عدد العملاء لم يتم التواصل معهم</div>
+                            <div class="fw-bold" style="font-size:2.2rem; color:#dc3545;">{{ stats.not_contacted }}</div>
+                        </div>
+                    </div>
+                    {% if stats.completed_interviews is not none %}
+                    <div class="col-md-4 col-6">
+                        <div class="elegant-card text-center py-4 shadow-lg h-100 position-relative" style="border-top: 4px solid #0dcaf0;">
+                            <div class="mb-2">
+                                <i class="bi bi-calendar-check-fill" style="font-size:2.5rem; color:#0dcaf0;"></i>
+                            </div>
+                            <div class="text-muted mb-1" style="font-size:1.15rem; font-weight:600;">عدد المقابلات المكتملة</div>
+                            <div class="fw-bold" style="font-size:3.2rem; color:#0dcaf0; letter-spacing:2px;">{{ stats.completed_interviews }}</div>
+                            <div class="d-flex justify-content-center gap-2 mt-3 flex-wrap">
+                                <span class="badge d-flex align-items-center px-3 py-2" style="background:#ffc107; color:#222; font-size:1.08rem; border-radius:8px;">
+                                    <i class="bi bi-chat-left-text-fill me-1" style="font-size:1.2rem;"></i>
+                                    الاستشارات: <span class="fw-bold ms-1">{{ stats.completed_estishara }}</span>
+                                </span>
+                                <span class="badge d-flex align-items-center px-3 py-2" style="background:#6c757d; color:#fff; font-size:1.08rem; border-radius:8px;">
+                                    <i class="bi bi-file-earmark-check-fill me-1" style="font-size:1.2rem;"></i>
+                                    تم التعاقد: <span class="fw-bold ms-1">{{ stats.completed_tam_ta3aqod }}</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
+{% block scripts %}
+{{ super() }}
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+    var btn = document.getElementById('team-stats-btn');
+    if (!btn) {
+        console.log('زر الفريق غير موجود في الـ DOM');
+        return;
+    }
+    btn.onclick = function() {
+        alert('زر الفريق يعمل!');
+        var start = document.querySelector('input[name="start_date"]').value;
+        var end = document.querySelector('input[name="end_date"]').value;
+        if (!start || !end) {
+            alert('يجب اختيار تاريخ البداية والنهاية أولاً!');
+            return false;
+        }
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '';
+        var startInput = document.createElement('input');
+        startInput.type = 'hidden';
+        startInput.name = 'start_date';
+        startInput.value = start;
+        form.appendChild(startInput);
+        var endInput = document.createElement('input');
+        endInput.type = 'hidden';
+        endInput.name = 'end_date';
+        endInput.value = end;
+        form.appendChild(endInput);
+        var clearInput = document.createElement('input');
+        clearInput.type = 'hidden';
+        clearInput.name = 'clear_employee';
+        clearInput.value = '1';
+        form.appendChild(clearInput);
+        document.body.appendChild(form);
+        form.submit();
+        return false;
+    };
+});
+</script>
+{% endblock %} 
