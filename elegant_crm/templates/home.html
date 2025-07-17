@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+
+{% block title %}الرئيسية - ELEGANT {% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="row justify-content-center mb-5">
+    <div class="col-lg-10">
+        <div class="elegant-card">
+            <div class="card-body text-center py-5">
+                <h1 class="display-4 fw-bold mb-3">
+                    <img src="{{ url_for('static', filename='images/logo.webp') }}" alt="ELEGANT Logo" style="height:180px; width:auto; box-shadow:0 6px 32px rgba(44,44,44,0.13); border-radius:18px; background:#fff; padding:10px; margin-bottom:10px;">
+                </h1>
+                <p class="lead text-muted mb-4">نظام إدارة العملاء المتطور والمتخصص في إدارة العلاقات مع العملاء</p>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="elegant-badge elegant-badge-info mb-3">
+                            <i class="bi bi-star-fill me-2"></i>
+                            نظام احترافي لإدارة العملاء والمتابعات
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row justify-content-center mb-5">
+    <div class="col-lg-10">
+        <div class="elegant-card">
+            <div class="elegant-card-header">
+                <h3 class="mb-0">
+                    <i class="bi bi-lightning-fill me-2"></i>
+                    إجراءات سريعة
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <a href="/contact" class="text-decoration-none">
+                            <div class="elegant-card interactive-element h-100">
+                                <div class="card-body text-center p-4">
+                                    <i class="bi bi-person-plus-fill display-4 text-danger mb-3"></i>
+                                    <h5>تسجيل عميل جديد</h5>
+                                    <p class="text-muted small">إضافة عميل جديد إلى النظام</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="/appointment" class="text-decoration-none">
+                            <div class="elegant-card interactive-element h-100">
+                                <div class="card-body text-center p-4">
+                                    <i class="bi bi-calendar-plus-fill display-4 text-danger mb-3"></i>
+                                    <h5>تسجيل مقابلة</h5>
+                                    <p class="text-muted small">حجز موعد مقابلة مع العميل</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="/followup" class="text-decoration-none">
+                            <div class="elegant-card interactive-element h-100">
+                                <div class="card-body text-center p-4">
+                                    <i class="bi bi-arrow-repeat display-4 text-danger mb-3"></i>
+                                    <h5>إضافة متابعة</h5>
+                                    <p class="text-muted small">متابعة حالة العميل</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="/view_clients" class="text-decoration-none">
+                            <div class="elegant-card interactive-element h-100">
+                                <div class="card-body text-center p-4">
+                                    <i class="bi bi-people-fill display-4 text-danger mb-3"></i>
+                                    <h5>عرض العملاء</h5>
+                                    <p class="text-muted small">استعراض جميع العملاء</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Statistics Dashboard -->
+<div class="row justify-content-center mb-5">
+    <div class="col-lg-10">
+        <div class="elegant-card">
+            <div class="elegant-card-header">
+                <h3 class="mb-0">
+                    <i class="bi bi-graph-up me-2"></i>
+                    لوحة الإحصائيات
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-3 mb-3">
+                        <div class="elegant-card h-100">
+                            <div class="card-body p-4">
+                                <i class="bi bi-people-fill display-4 text-info mb-3"></i>
+                                <h4 class="fw-bold">العملاء</h4>
+                                <div class="elegant-badge elegant-badge-info">
+                                    إجمالي العملاء المسجلين
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="elegant-card h-100">
+                            <div class="card-body p-4">
+                                <i class="bi bi-calendar-check-fill display-4 text-success mb-3"></i>
+                                <h4 class="fw-bold">المقابلات</h4>
+                                <div class="elegant-badge elegant-badge-success">
+                                    المقابلات المكتملة
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="elegant-card h-100">
+                            <div class="card-body p-4">
+                                <i class="bi bi-arrow-repeat display-4 text-warning mb-3"></i>
+                                <h4 class="fw-bold">المتابعات</h4>
+                                <div class="elegant-badge elegant-badge-warning">
+                                    المتابعات النشطة
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="elegant-card h-100">
+                            <div class="card-body p-4">
+                                <i class="bi bi-star-fill display-4 text-danger mb-3"></i>
+                                <h4 class="fw-bold">المهتمون</h4>
+                                <div class="elegant-badge elegant-badge-danger">
+                                    العملاء المهتمون
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- System Features -->
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="elegant-card">
+            <div class="elegant-card-header">
+                <h3 class="mb-0">
+                    <i class="bi bi-gear-fill me-2"></i>
+                    مميزات النظام
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                   <div class="col-md-4 mb-3">
+                        <div class="text-center">
+                            <i class="bi bi-shield-lock-fill display-4 text-info mb-3"></i>
+                            <h5>أمان عالي</h5>
+                            
+                            <p class="text-muted">حماية متقدمة لبيانات العملاء</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="text-center">
+                            <i class="bi bi-speedometer2 display-4 text-info mb-3"></i>
+                            <h5>سرعة في الأداء</h5>
+                            <p class="text-muted">استجابة سريعة وواجهة سلسة</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="text-center">
+                            <i class="bi bi-phone-fill display-4 text-warning mb-3"></i>
+                            <h5>متجاوب</h5>
+                            <p class="text-muted">يعمل على جميع الأجهزة</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %} 
+
+<style>
+/* تحسين مظهر الأنشطة الأخيرة */
+.elegant-card .card-body .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+@media (max-width: 991px) {
+    .elegant-card .card-body .card-title {
+        font-size: 1rem;
+    }
+}
+</style> 
