@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">عرض المقابلات</h2>
+    <form method="POST" class="row g-3 mb-4">
+        <div class="col-md-3">
+            <label class="form-label">اسم الموظف</label>
+            <select name="employee_name" class="form-select">
+                <option value="">-- اختر الموظف --</option>
+                {% for emp in employees %}
+                    <option value="{{ emp.employee_name }}" {% if selected_employee == emp.employee_name %}selected{% endif %}>
+                        {{ emp.employee_name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">من تاريخ</label>
+            <input type="date" name="start_date" class="form-control" value="{{ start_date }}">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">إلى تاريخ</label>
+            <input type="date" name="end_date" class="form-control" value="{{ end_date }}">
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">عرض</button>
+        </div>
+    </form>
+
+    {% if rows %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>اسم الموظف</th>
+                        <th>اسم العميل</th>
+                        <th>رقم العميل</th>
+                        <th>تاريخ المقابلة</th>
+                        <th>تاريخ الإضافة</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in rows %}
+                    <tr>
+                        <td>{{ row.employee_name }}</td>
+                        <td>{{ row.client_name }}</td>
+                        <td>{{ row.client_phone }}</td>
+                        <td>{{ row.appointment_date }}</td>
+                        <td>{{ row.created_at }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="text-end mt-2">
+            <span class="badge bg-info fs-5">عدد المقابلات: {{ rows|length }}</span>
+        </div>
+    {% else %}
+        <p class="text-muted">لا توجد بيانات لعرضها.</p>
+    {% endif %}
+</div>
+{% endblock %}

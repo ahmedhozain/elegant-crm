@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}إضافة عميل لم يتم التواصل معه - ELEGANT{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <!-- Page Header -->
+        <div class="elegant-card mb-4">
+            <div class="elegant-card-header">
+                <h2 class="mb-0">
+                    <i class="bi bi-person-x-fill me-2"></i>
+                    إضافة عميل لم يتم التواصل معه
+                </h2>
+            </div>
+        </div>
+
+        <!-- Success Alert (if any) -->
+        {% if request.method == 'POST' %}
+        <div class="elegant-alert elegant-alert-success">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            تم إضافة العميل بنجاح!
+        </div>
+        {% endif %}
+
+        <!-- Main Form -->
+        <div class="elegant-card">
+            <div class="card-body p-4">
+                <form method="POST" class="elegant-form">
+                    <div class="row">
+                        <!-- Employee Name -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-person-badge me-1"></i>
+                                اسم الموظف
+                            </label>
+                            <select name="employee_name" class="form-select" required>
+                                <option value="">اختر اسم الموظف</option>
+                                {% for emp in employees %}
+                                    <option value="{{ emp }}">{{ emp }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Client Number -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-telephone me-1"></i>
+                                رقم العميل
+                            </label>
+                            <input type="text" name="client_number" class="form-control" required 
+                                   placeholder="أدخل رقم العميل">
+                        </div>
+
+                        <!-- Notes -->
+                        <div class="col-12 mb-4">
+                            <label class="form-label">
+                                <i class="bi bi-journal-text me-1"></i>
+                                ملاحظات
+                            </label>
+                            <textarea name="notes" class="form-control" rows="3" 
+                                      placeholder="أدخل ملاحظات ..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center">
+                        <button type="submit" class="elegant-btn elegant-btn-primary">
+                            <i class="bi bi-plus-circle-fill me-2"></i>
+                            إضافة العميل
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
