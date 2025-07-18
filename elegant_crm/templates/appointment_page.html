@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}تسجيل مقابلة - ELEGANT{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <!-- Page Header -->
+        <div class="elegant-card mb-4">
+            <div class="elegant-card-header">
+                <h2 class="mb-0">
+                    <i class="bi bi-calendar-plus-fill me-2"></i>
+                    تسجيل مقابلة جديدة
+                </h2>
+            </div>
+        </div>
+
+        <!-- Success Alert (if any) -->
+        {% if request.method == 'POST' %}
+        <div class="elegant-alert elegant-alert-success">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            تم تسجيل المقابلة بنجاح!
+        </div>
+        {% endif %}
+
+        <!-- Main Form -->
+        <div class="elegant-card">
+            <div class="card-body p-4">
+                <form method="POST" class="elegant-form">
+                    <div class="row">
+                        <!-- Employee Name -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-person-badge me-1"></i>
+                                اسم الموظف
+                            </label>
+                            <select name="employee_name" class="form-select" required>
+                                <option value="">اختر اسم الموظف</option>
+                                {% for emp in employees %}
+                                    <option value="{{ emp }}">{{ emp }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Client Name -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-person me-1"></i>
+                                اسم العميل
+                            </label>
+                            <input type="text" name="client_name" class="form-control" required 
+                                   placeholder="أدخل اسم العميل">
+                        </div>
+
+                        <!-- Client Phone -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-telephone me-1"></i>
+                                رقم العميل
+                            </label>
+                            <input type="tel" name="client_phone" class="form-control" required 
+                                   placeholder="أدخل رقم العميل">
+                        </div>
+
+                        <!-- Appointment Date -->
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">
+                                <i class="bi bi-calendar-event me-1"></i>
+                                تاريخ المقابلة
+                            </label>
+                            <input type="date" name="appointment_date" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center">
+                        <button type="submit" class="elegant-btn elegant-btn-primary">
+                            <i class="bi bi-calendar-check-fill me-2"></i>
+                            تسجيل المقابلة
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Quick Info Card -->
+        <div class="elegant-card mt-4">
+            <div class="card-body">
+                <h5 class="card-title mb-3">
+                    <i class="bi bi-info-circle me-2"></i>
+                    معلومات سريعة
+                </h5>
+                <div class="row text-center">
+                    <div class="col-md-4 mb-2">
+                        <div class="elegant-badge elegant-badge-info">
+                            <i class="bi bi-calendar-fill me-1"></i>
+                            المقابلات اليوم
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <div class="elegant-badge elegant-badge-success">
+                            <i class="bi bi-check-circle-fill me-1"></i>
+                            مقابلات مكتملة
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <div class="elegant-badge elegant-badge-warning">
+                            <i class="bi bi-clock-fill me-1"></i>
+                            مقابلات قادمة
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
