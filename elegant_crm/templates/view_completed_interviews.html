@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}عرض المقابلات المكتملة - ELEGANT{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <!-- Page Header -->
+        <div class="elegant-card mb-4">
+            <div class="elegant-card-header bg-info text-white">
+                <h2 class="mb-0">
+                    <i class="bi bi-list-check me-2"></i>
+                    جدول المقابلات المكتملة
+                </h2>
+            </div>
+        </div>
+        <div class="elegant-card mb-4">
+            <div class="card-body p-4">
+                <form method="post" class="row g-3 align-items-end">
+                    <div class="col-md-3">
+                        <label class="form-label">اسم الموظف</label>
+                        <select name="employee_name" class="form-select">
+                            <option value="">الكل</option>
+                            {% for emp in employees %}
+                                <option value="{{ emp.employee_name }}" {% if selected_employee == emp.employee_name %}selected{% endif %}>{{ emp.employee_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">من تاريخ</label>
+                        <input type="date" name="start_date" class="form-control" value="{{ start_date|default('') }}">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">إلى تاريخ</label>
+                        <input type="date" name="end_date" class="form-control" value="{{ end_date|default('') }}">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">حالة العميل</label>
+                        <select name="client_status" class="form-select">
+                            <option value="">الكل</option>
+                            <option value="استشارة" {% if client_status == 'استشارة' %}selected{% endif %}>استشارة</option>
+                            <option value="تم التعاقد" {% if client_status == 'تم التعاقد' %}selected{% endif %}>تم التعاقد</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1 d-flex gap-2">
+                        <button type="submit" class="elegant-btn elegant-btn-primary btn-sm py-1 px-2">عرض</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="elegant-card">
+            <div class="card-body p-4">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover align-middle text-center">
+                        <thead class="table-light">
+                            <tr>
+                                <th>اسم الموظف</th>
+                                <th>اسم العميل</th>
+                                <th>رقم العميل</th>
+                                <th>حالة العميل</th>
+                                <th>المحاور</th>
+                                <th>ملاحظات</th>
+                                <th>تاريخ الإضافة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in rows %}
+                            <tr>
+                                <td>{{ row.employee_name }}</td>
+                                <td>{{ row.client_name }}</td>
+                                <td>{{ row.client_number }}</td>
+                                <td>{{ row.client_status }}</td>
+                                <td>{{ row.interviewer }}</td>
+                                <td>{{ row.notes }}</td>
+                                <td>{{ row.created_at }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

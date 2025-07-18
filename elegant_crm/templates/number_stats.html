@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}إحصائيات رقم{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="elegant-card p-4">
+                <h3 class="mb-4 text-center">إحصائيات رقم</h3>
+                <form method="POST" class="mb-4">
+                    <div class="input-group">
+                        <input type="text" name="client_number" class="form-control" placeholder="أدخل رقم الهاتف" value="{{ client_number|default('') }}" required>
+                        <button type="submit" class="btn btn-primary">بحث</button>
+                    </div>
+                </form>
+                {% if stats %}
+                <div class="mb-3">
+                    <strong>اسم صاحب الرقم:</strong> {{ stats.client_name or 'غير مسجل' }}
+                </div>
+                <div class="mb-3">
+                    <strong>اسم الموظف الذي أضاف الرقم:</strong> {{ stats.employee_name or 'غير معروف' }}
+                </div>
+                <div class="mb-3">
+                    <strong>تاريخ الإضافة:</strong> {{ stats.created_at or 'غير متوفر' }}
+                </div>
+                <div class="mb-3">
+                    <strong>عدد مرات المتابعة:</strong> {{ stats.followup_count or 0 }}
+                </div>
+                <div class="mb-3">
+                    <strong>تواريخ المتابعات:</strong>
+                    {% if stats.followup_dates %}
+                        <ul>
+                        {% for d in stats.followup_dates %}
+                            <li>{{ d }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% else %}
+                        لا يوجد متابعات
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    <strong>هل تم تسجيل مقابلة مكتملة؟</strong>
+                    {% if stats.completed_interview %}
+                        <span class="badge bg-success">نعم</span>
+                    {% else %}
+                        <span class="badge bg-danger">لا</span>
+                    {% endif %}
+                </div>
+                {% elif client_number %}
+                <div class="alert alert-warning text-center">لا توجد بيانات لهذا الرقم.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
